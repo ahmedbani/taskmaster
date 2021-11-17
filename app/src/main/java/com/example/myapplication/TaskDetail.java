@@ -16,7 +16,13 @@ public class TaskDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         String header = intent.getExtras().getString("taskName");
+        String body = intent.getExtras().getString("taskBody");
+        String state = intent.getExtras().getString("taskState");
         TextView headerViews = findViewById(R.id.detailHead);
+        TextView bodyViews = findViewById(R.id.detailBody);
+        TextView stateViews = findViewById(R.id.detailState);
         headerViews.setText(header);
+        bodyViews.setText(body);
+        stateViews.setText(state);
     }
 }
