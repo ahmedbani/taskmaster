@@ -9,20 +9,21 @@
 
     <TextView
         android:id="@+id/detailHead"
-        android:layout_width="272dp"
-        android:layout_height="107dp"
+        android:layout_width="147dp"
+        android:layout_height="41dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:text="Details Header"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintVertical_bias="0.105" />
 
     <TextView
-        android:id="@+id/detaildDescribe"
+        android:id="@+id/detailBody"
         android:layout_width="338dp"
         android:layout_height="192dp"
         android:background="#FFFFFF"
@@ -33,5 +34,15 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailHead"
-        app:layout_constraintVertical_bias="0.418" />
+        app:layout_constraintVertical_bias="0.154" />
+
+    <TextView
+        android:id="@+id/detailState"
+        android:layout_width="83dp"
+        android:layout_height="40dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/detailBody"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detailHead"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

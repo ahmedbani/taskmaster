@@ -1,6 +1,12 @@
 package com.example.myapplication;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Task {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
     private String title;
     private String body;
     private String state;
@@ -36,5 +42,15 @@ public class Task {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", state='" + state + '\'' +
+                '}';
     }
 }

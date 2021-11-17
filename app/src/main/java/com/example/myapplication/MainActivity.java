@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -64,10 +65,13 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
 //                startActivity(toTask3);
 //            }
 //        });
-        List<Task> tasks = new ArrayList<Task>();
-        tasks.add(new Task("Task 1", "created by Ahmed Bani-Salameh","complete"));
-        tasks.add(new Task("Task 2", "created by Ahmed Bani-Salameh","new"));
-        tasks.add(new Task("Task 3", "created by Ahmed Bani-Salameh","assigned"));
+        AppDataBase db = Room.databaseBuilder(getApplicationContext(),
+                AppDataBase.class, "task").allowMainThreadQueries().build();
+        TaskDao taskDao = db.taskDao();
+        List<Task> tasks = taskDao.getAll();
+//        tasks.add(new Task("Task 1", "created by Ahmed Bani-Salameh","complete"));
+//        tasks.add(new Task("Task 2", "created by Ahmed Bani-Salameh","new"));
+//        tasks.add(new Task("Task 3", "created by Ahmed Bani-Salameh","assigned"));
 
         RecyclerView recyclerView = findViewById(R.id.allTasksView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -96,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
     public void onTaskClick(int position,Task task) {
         Intent toTask = new Intent(MainActivity.this,TaskDetail.class);
         toTask.putExtra("taskName", task.getTitle());
+        toTask.putExtra("taskBody", task.getBody());
+        toTask.putExtra("taskState", task.getState());
         startActivity(toTask);
     }
 
