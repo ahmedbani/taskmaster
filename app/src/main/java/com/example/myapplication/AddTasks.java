@@ -6,16 +6,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddTasks extends AppCompatActivity {
+    List<Team> teams = new ArrayList<>();
+    Team selectedTeam;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +33,17 @@ public class AddTasks extends AppCompatActivity {
         EditText title = findViewById(R.id.editTitle);
         EditText body = findViewById(R.id.editBody);
         EditText state = findViewById(R.id.editState);
+        RadioGroup rGroup = findViewById(R.id.teams);
+        int id = rGroup.getCheckedRadioButtonId();
+        RadioButton rButton = findViewById(id);
+
+        Amplify.API.query(ModelQuery.list(Team.class), response -> {
+            for (Team team : response.getData()) {
+                teams.add(team);
+                Log.i("Teams: ", team.getName());
+            }
+        }, error -> Log.e("MyAmplifyApp", "Query failure", error));
+
         Button addTaskButton = findViewById(R.id.addTaskButton);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,10 +54,19 @@ public class AddTasks extends AppCompatActivity {
 //                        AppDataBase.class, "task").allowMainThreadQueries().build();
 //                TaskDao taskDao = db.taskDao();
 //                taskDao.saveTask(task);
+
+                for (Team team : teams) {
+                    if (team.getName().equals(rButton.getText().toString())){
+                        System.out.println(rButton.getText().toString());
+                        selectedTeam = team;
+                    }
+                }
                 Task task = Task.builder()
                         .title(title.getText().toString())
                         .body(body.getText().toString())
                         .state(state.getText().toString())
+                        .team(selectedTeam)
+
                         .build();
 
                 Amplify.API.mutate(

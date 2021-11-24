@@ -20,9 +20,11 @@ import android.widget.TextView;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +101,33 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
 //        recyclerView.setAdapter(new TaskAdapter(tasks,this));
 //
 
+//        Team team1 = Team.builder()
+//                .name("Team 1")
+//                .build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.create(team1),
+//                response -> Log.i("MyAmplifyApp", "Added Task with id: " + response.getData().getId()),
+//                error -> Log.e("MyAmplifyApp", "Create failed", error)
+//        );
+//        Team team2 = Team.builder()
+//                .name("Team 2")
+//                .build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.create(team2),
+//                response -> Log.i("MyAmplifyApp", "Added Task with id: " + response.getData().getId()),
+//                error -> Log.e("MyAmplifyApp", "Create failed", error)
+//        );
+//        Team team3 = Team.builder()
+//                .name("Team 3")
+//                .build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.create(team3),
+//                response -> Log.i("MyAmplifyApp", "Added Task with id: " + response.getData().getId()),
+//                error -> Log.e("MyAmplifyApp", "Create failed", error)
+//        );
     }
     @Override
     protected void onResume() {
@@ -107,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         String usernameMessage = "\'s Tasks";
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String username = sharedPreferences.getString("username", "username");
+        String team = sharedPreferences.getString("team","team");
         TextView usernameField = findViewById(R.id.usernameView);
         usernameField.setText(username + usernameMessage);
 
@@ -119,8 +149,9 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
             }
         });
         ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> teamTasks = new ArrayList<Task>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TaskAdapter(tasks,this));
+        recyclerView.setAdapter(new TaskAdapter(teamTasks,this));
 
         Amplify.API.query(
                 ModelQuery.list(Task.class) ,
@@ -130,6 +161,11 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
                         Log.i("MyAmplifyApp" , task.getBody());
                         Log.i("MyAmplifyApp" , task.getState());
                         tasks.add(task);
+                    }
+                    for (int i = 0 ; i < tasks.size(); i++){
+                        if (tasks.get(i).getTeam().getName().equals(team)){
+                            teamTasks.add(tasks.get(i));
+                        }
                     }
                     handler.sendEmptyMessage(1);
                     Log.i("MyAmplifyApp", "Out of Loop!");

@@ -68,6 +68,25 @@ Create a Task Detail page. It should have a title at the top of the page, with t
 
 + Refactor the homepage’s RecyclerView to display all Task entities in DynamoDB.
 
+## version 1.0.5
+
++ Modified the Add Task form to have radio buttons to select the team the task is for and save the data entered in as a Task to DynamoDB with the task having a relation with the team.
+
+<div style="width: 40%; margin-right: 3%;">
+
+![detail](screenShots/addTeam.png)
+
+</div>
+
++ modified the settings page now it shows you the teams you can choose one of them.
+
+<div style="width: 40%; margin-right: 3%;">
+
+![detail](screenShots/settingTeam.png)
+</div>
+
++ Refactor the homepage’s RecyclerView to display all Task entities in DynamoDB for the team you choose in the settings.
+
 ## Devs 
 
 - **Ahmed Bani-Salameh**

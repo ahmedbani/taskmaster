@@ -8,17 +8,17 @@
 
     <EditText
         android:id="@+id/editState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:hint="Task State"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.343"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBody"
-        app:layout_constraintVertical_bias="0.136" />
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toEndOf="@+id/editTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211" />
 
     <TextView
         android:id="@+id/textView2"
@@ -28,26 +28,26 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="0.065" />
 
     <EditText
         android:id="@+id/editTitle"
         style="@style/Widget.AppCompat.EditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="40dp"
         android:contentDescription="Add something"
         android:ems="10"
         android:hint="My Task"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.343"
+        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.078" />
+        app:layout_constraintVertical_bias="0.068" />
 
     <EditText
         android:id="@+id/editBody"
@@ -58,10 +58,9 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.343"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.409" />
+        app:layout_constraintVertical_bias="0.339" />
 
     <Button
         android:id="@+id/addTaskButton"
@@ -87,4 +86,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.788" />
+
+    <RadioGroup
+        android:id="@+id/teams"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/addTaskButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBody">
+
+        <RadioButton
+            android:id="@+id/team1"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Team 1" />
+
+        <RadioButton
+            android:id="@+id/team2"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Team 2" />
+
+        <RadioButton
+            android:id="@+id/team3"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Team 3" />
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
