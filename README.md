@@ -62,6 +62,12 @@ Create a Task Detail page. It should have a title at the top of the page, with t
 ![detail](screenShots/taskDetail.png)
 </div>
 
+## version 1.0.4
+
++ Modified the Add Task form to save the data entered in as a Task to DynamoDB.
+
++ Refactor the homepage’s RecyclerView to display all Task entities in DynamoDB.
+
 ## Devs 
 
 - **Ahmed Bani-Salameh**

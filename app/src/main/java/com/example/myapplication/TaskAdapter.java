@@ -9,12 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
-    List<Task> allTasks = new ArrayList<Task>();
+    List<Task> allTasks = new ArrayList<com.amplifyframework.datastore.generated.model.Task>();
     OnTaskListener mOnTaskListener;
 
     public TaskAdapter(List<Task> allTasks, OnTaskListener onTaskListener) {
@@ -63,10 +65,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         @Override
         public void onClick(View view) {
+
             onTaskListener.onTaskClick(getAdapterPosition(),task);
         }
     }
     public interface OnTaskListener{
-        void onTaskClick(int position,Task task);
+        void onTaskClick(int position, Task task);
     }
 }
