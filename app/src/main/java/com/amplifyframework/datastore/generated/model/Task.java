@@ -19,7 +19,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 /** This is an auto generated class representing the Task type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "Tasks")
-public final class Task extends com.example.myapplication.Task implements Model {
+public final class Task implements Model {
   public static final QueryField ID = field("Task", "id");
   public static final QueryField TITLE = field("Task", "title");
   public static final QueryField BODY = field("Task", "body");

@@ -98,17 +98,18 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.setAdapter(new TaskAdapter(tasks,this));
 //
-//        Amplify.API.query(
-//                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class),
-//                response -> {
-//                    for (com.amplifyframework.datastore.generated.model.Task item : response.getData()) {
-//                        Log.i("MyAmplifyApp", item.getTitle());
-//                        tasks.add(item);
-//                    }
-//                    handler.sendEmptyMessage(1);
-//                },
-//                error -> Log.e("MyAmplifyApp", "Query failure", error)
-//        );
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String usernameMessage = "\'s Tasks";
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String username = sharedPreferences.getString("username", "username");
+        TextView usernameField = findViewById(R.id.usernameView);
+        usernameField.setText(username + usernameMessage);
+
         RecyclerView recyclerView = findViewById(R.id.allTasksView);
         Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
             @Override
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
                     }
                     handler.sendEmptyMessage(1);
                     Log.i("MyAmplifyApp", "Out of Loop!");
-                }, error -> Log.e("MyAmplifyApp", "Query failure", error));
+                }, error -> Log.e("MyAmplifyApp",  error.getMessage()));
 
         Button settings = findViewById(R.id.settingsButton);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -142,16 +143,6 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
                 startActivity(toSettings);
             }
         });
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        String usernameMessage = "\'s Tasks";
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String username = sharedPreferences.getString("username", "username");
-        TextView usernameField = findViewById(R.id.usernameView);
-        usernameField.setText(username + usernameMessage);
     }
 //    @Override
 //    protected void onStart() {
