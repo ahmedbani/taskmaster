@@ -149,22 +149,22 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
             }
         });
         ArrayList<Task> tasks = new ArrayList<Task>();
-        ArrayList<Task> teamTasks = new ArrayList<Task>();
+        ArrayList<Team> teams = new ArrayList<Team>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TaskAdapter(teamTasks,this));
+        recyclerView.setAdapter(new TaskAdapter(tasks,this));
 
         Amplify.API.query(
-                ModelQuery.list(Task.class) ,
+                ModelQuery.list(Team.class) ,
                 response -> {
-                    for (Task task : response.getData()){
-                        Log.i("MyAmplifyApp" , task.getTitle());
-                        Log.i("MyAmplifyApp" , task.getBody());
-                        Log.i("MyAmplifyApp" , task.getState());
-                        tasks.add(task);
+                    for (Team team1 : response.getData()){
+                        Log.i("MyAmplifyApp" , team1.getName() );
+                        teams.add(team1);
                     }
-                    for (int i = 0 ; i < tasks.size(); i++){
-                        if (tasks.get(i).getTeam().getName().equals(team)){
-                            teamTasks.add(tasks.get(i));
+                    for (int i = 0 ; i < teams.size(); i++){
+                        if (teams.get(i).getName().equals(team)){
+                            for (int j = 0 ; j < teams.get(i).getTasks().size() ; j++){
+                                tasks.add(teams.get(i).getTasks().get(j));
+                            }
                         }
                     }
                     handler.sendEmptyMessage(1);

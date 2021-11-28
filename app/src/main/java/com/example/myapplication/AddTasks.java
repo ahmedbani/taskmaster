@@ -65,7 +65,7 @@ public class AddTasks extends AppCompatActivity {
                         .title(title.getText().toString())
                         .body(body.getText().toString())
                         .state(state.getText().toString())
-                        .team(selectedTeam)
+                        .teamId(selectedTeam.getId())
 
                         .build();
 
