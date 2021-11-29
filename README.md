@@ -91,6 +91,22 @@ Create a Task Detail page. It should have a title at the top of the page, with t
 
 + added authentication service, now the user can signup and login to his account 
 
+## version 1.0.6
+
++ modified the add task page now you can upload a file with the task and add it to the DB 
+
+<div style="width: 40%; margin-right: 3%;">
+
+![upload](screenShots/addImage.png)
+</div>
+
+<div style="width: 40%; margin-right: 3%;">
+
+![upload](screenShots/upload.png)
+</div>
+
++ the file that was added will be displayed in the task details when you press on one of the tasks
+
 ## Devs 
 
 - **Ahmed Bani-Salameh**

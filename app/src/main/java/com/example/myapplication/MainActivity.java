@@ -8,6 +8,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amplifyframework.AmplifyException;
@@ -28,7 +30,9 @@ import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
             // Add these lines to add the AWSApiPlugin plugins
             Amplify.addPlugin(new AWSApiPlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.configure(getApplicationContext());
 
             Log.i("MyAmplifyApp", "Initialized Amplify");
@@ -88,6 +93,15 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         );
 
 
+//        ImageView test = findViewById(R.id.imageView3);
+//        Amplify.Storage.downloadFile(
+//                "cc19 (1).jpg",
+//                new File(getApplicationContext().getFilesDir() + "/cc19 (1).jpg"),
+//                result -> {
+//                    test.setImageBitmap(BitmapFactory.decodeFile(result.getFile().getPath()));
+//                    Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getName());},
+//                error -> Log.e("MyAmplifyApp",  "Download Failure", error)
+//        );
 
         Button allTasks = findViewById(R.id.allTasksButton);
         allTasks.setOnClickListener(new View.OnClickListener() {
