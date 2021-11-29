@@ -87,6 +87,10 @@ Create a Task Detail page. It should have a title at the top of the page, with t
 
 + Refactor the homepage’s RecyclerView to display all Task entities in DynamoDB for the team you choose in the settings.
 
+## version 1.0.5
+
++ added authentication service, now the user can signup and login to his account 
+
 ## Devs 
 
 - **Ahmed Bani-Salameh**

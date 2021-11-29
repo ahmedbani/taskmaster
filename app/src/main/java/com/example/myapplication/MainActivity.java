@@ -22,6 +22,9 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
@@ -38,12 +41,53 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         try {
             // Add these lines to add the AWSApiPlugin plugins
             Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
             Amplify.configure(getApplicationContext());
 
             Log.i("MyAmplifyApp", "Initialized Amplify");
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
+
+        Button signIn = findViewById(R.id.signIn);
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Amplify.Auth.signInWithWebUI(
+                        MainActivity.this,
+                        result -> Log.i("AuthQuickStart", result.toString()),
+                        error -> Log.e("AuthQuickStart", error.toString())
+                );
+            }
+        });
+
+
+        Button signOut = findViewById(R.id.signout);
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Amplify.Auth.signOut(
+                        () -> Log.i("AuthQuickstart", "Signed out successfully"),
+                        error -> Log.e("AuthQuickstart", error.toString())
+                );
+            }
+        });
+        Amplify.Auth.fetchAuthSession(
+                result -> {
+                    Log.i("AmplifyQuickstart", result.toString());
+                    if(!result.isSignedIn()){
+                        signIn.setVisibility(View.VISIBLE);
+                        signOut.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        signIn.setVisibility(View.GONE);
+                        signOut.setVisibility(View.VISIBLE);
+                    }
+                },
+                error -> Log.e("AmplifyQuickstart", error.toString())
+        );
+
+
 
         Button allTasks = findViewById(R.id.allTasksButton);
         allTasks.setOnClickListener(new View.OnClickListener() {
