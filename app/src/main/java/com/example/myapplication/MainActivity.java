@@ -49,16 +49,18 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
-        Amplify.Auth.fetchAuthSession(
-                result -> Log.i("AmplifyQuickstart", result.toString()),
-                error -> Log.e("AmplifyQuickstart", error.toString())
-        );
+        Button signIn = findViewById(R.id.signIn);
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Amplify.Auth.signInWithWebUI(
+                        MainActivity.this,
+                        result -> Log.i("AuthQuickStart", result.toString()),
+                        error -> Log.e("AuthQuickStart", error.toString())
+                );
+            }
+        });
 
-        Amplify.Auth.signInWithWebUI(
-                this,
-                result -> Log.i("AuthQuickStart", result.toString()),
-                error -> Log.e("AuthQuickStart", error.toString())
-        );
 
         Button signOut = findViewById(R.id.signout);
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +72,21 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
                 );
             }
         });
+        Amplify.Auth.fetchAuthSession(
+                result -> {
+                    Log.i("AmplifyQuickstart", result.toString());
+                    if(!result.isSignedIn()){
+                        signIn.setVisibility(View.VISIBLE);
+                        signOut.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        signIn.setVisibility(View.GONE);
+                        signOut.setVisibility(View.VISIBLE);
+                    }
+                },
+                error -> Log.e("AmplifyQuickstart", error.toString())
+        );
+
 
 
         Button allTasks = findViewById(R.id.allTasksButton);
