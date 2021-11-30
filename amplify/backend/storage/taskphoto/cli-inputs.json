@@ -1,0 +1,16 @@
+{
+  "resourceName": "taskphoto",
+  "policyUUID": "5f5049de",
+  "bucketName": "taskmaster154c840b7384440c99ca2e8037530b341",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

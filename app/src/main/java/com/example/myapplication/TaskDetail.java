@@ -3,9 +3,16 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amplifyframework.core.Amplify;
+
+import java.io.File;
 
 public class TaskDetail extends AppCompatActivity {
 
@@ -24,5 +31,16 @@ public class TaskDetail extends AppCompatActivity {
         headerViews.setText(header);
         bodyViews.setText(body);
         stateViews.setText(state);
+
+        ImageView taskImage = findViewById(R.id.taskImage);
+        Amplify.Storage.downloadFile(
+                header,
+                new File(getApplicationContext().getFilesDir() + "/Example Key.jpg"),
+                result ->{
+                    taskImage.setImageBitmap(BitmapFactory.decodeFile(result.getFile().getPath()));
+                    Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getName());
+                },
+                error -> Log.e("MyAmplifyApp",  "Download Failure", error)
+        );
     }
 }

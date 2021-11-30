@@ -39,7 +39,8 @@
     },
     "categories": {
       "auth": {
-        "taskmasterdba80136": {}
+        "taskmasterdba80136": {},
+        "true": {}
       }
     }
   }
