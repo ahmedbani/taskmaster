@@ -31,6 +31,7 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -92,17 +93,6 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
                 error -> Log.e("AmplifyQuickstart", error.toString())
         );
 
-
-//        ImageView test = findViewById(R.id.imageView3);
-//        Amplify.Storage.downloadFile(
-//                "cc19 (1).jpg",
-//                new File(getApplicationContext().getFilesDir() + "/cc19 (1).jpg"),
-//                result -> {
-//                    test.setImageBitmap(BitmapFactory.decodeFile(result.getFile().getPath()));
-//                    Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getName());},
-//                error -> Log.e("MyAmplifyApp",  "Download Failure", error)
-//        );
-
         Button allTasks = findViewById(R.id.allTasksButton);
         allTasks.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
                 startActivity(toAddTasks);
             }
         });
+        System.out.println("GOOGLE GOOGLE "+   GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this));
 //        Button task1 = findViewById(R.id.task1);
 //        task1.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -249,6 +240,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnTas
         toTask.putExtra("taskName", task.getTitle());
         toTask.putExtra("taskBody", task.getBody());
         toTask.putExtra("taskState", task.getState());
+        toTask.putExtra("key",task.getId());
         startActivity(toTask);
     }
 
