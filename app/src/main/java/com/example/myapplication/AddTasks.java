@@ -43,6 +43,8 @@ public class AddTasks extends AppCompatActivity {
     List<Team> teams = new ArrayList<>();
     Team selectedTeam;
     Uri uri;
+    Intent intent;
+    Uri data;
     EditText title;
     EditText body;
     EditText state;
@@ -57,8 +59,8 @@ public class AddTasks extends AppCompatActivity {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-
-
+        intent = getIntent();
+        data = intent.getData();
 
 // onCreate
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -164,14 +166,36 @@ public class AddTasks extends AppCompatActivity {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddTasks.this);
                 sharedPreferences.edit().putString(key, loc).apply();
 
+                if(data != null){
+
+                    if (intent.getType().indexOf("image/") != -1) {
+                        System.out.println("number 222222222 "+data);
+
+                        try {
+                            InputStream exampleInputStream = getContentResolver().openInputStream(data);
+                            Amplify.Storage.uploadInputStream(
+                                    title.getText().toString(),
+                                    exampleInputStream,
+                                    result -> Log.i("MyAmplifyApp", "Successfully uploaded: " + result.getKey()),
+                                    storageFailure -> Log.e("MyAmplifyApp", "Upload failed", storageFailure)
+                            );
+                        } catch (FileNotFoundException error) {
+                            Log.e("MyAmplifyApp", "Could not find file to open for input stream.", error);
+                        }
+                    }
+
+                }
+
                 Intent toHome = new Intent(AddTasks.this , MainActivity.class);
                 startActivity(toHome);
 
             }
         });
     }
+    //content://com.android.providers.media.documents/document/image%3A431103
     private void uploadInputStream() {
         if (uri != null) {
+            System.out.println("gggggggg"+uri);
             try {
                 InputStream exampleInputStream = getContentResolver().openInputStream(uri);
                 Amplify.Storage.uploadInputStream(
