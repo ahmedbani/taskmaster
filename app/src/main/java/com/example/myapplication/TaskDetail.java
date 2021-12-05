@@ -3,8 +3,10 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +33,12 @@ public class TaskDetail extends AppCompatActivity {
         headerViews.setText(header);
         bodyViews.setText(body);
         stateViews.setText(state);
+        TextView location = findViewById(R.id.location);
+        String key = intent.getExtras().getString("key");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(TaskDetail.this);
+        String locationData = sharedPreferences.getString(key,"No Location Found");
+
+        location.setText(locationData);
 
         ImageView taskImage = findViewById(R.id.taskImage);
         Amplify.Storage.downloadFile(
