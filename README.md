@@ -107,6 +107,14 @@ Create a Task Detail page. It should have a title at the top of the page, with t
 
 + the file that was added will be displayed in the task details when you press on one of the tasks
 
+## version 1.0.7
+
++ now you can share an image to the application and it takes to the add task activity where you can use this image within the task and add it.
+
+## version 1.0.8  
+
++ when you add the task it will also add the location of where the task where created so when you press on that task it will give you that location, when you want to add a task you must enable the location permission for the task master application 
+
 ## Devs 
 
 - **Ahmed Bani-Salameh**
